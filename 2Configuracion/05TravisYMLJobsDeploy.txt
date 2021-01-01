@@ -1,0 +1,6 @@
+
+Archivo de configuración travis.yml jobs y deploy
+
+documentacion: https://docs.travis-ci.com/
+
+Ver codigo: https://github.com/gndx/platzi-store

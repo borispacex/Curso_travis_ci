@@ -1,0 +1,54 @@
+# Lenguaje con el cual trabajamos (JavaScript)
+language: node_js
+# Establecemos el sistema operativo (Predeterminadamente trabaja con GNULinux)
+os: osx
+# Configuracion mas profundas
+git:
+  # Añadimos 3 profundidades al repositorio (3 versiones)
+  depth: 3
+
+branches:
+  # branches que no queremos implementar (No queremos utilizar)
+  except:
+  - legacy
+  - experimental
+
+branches:
+  # solo las ramas que queremos
+  only:
+  - master
+  - stable
+
+before_install: #antes de hacerlo
+  - python
+
+install:
+  - yarn install
+# - apt install curl
+
+script:
+  - yarn deploy
+  - yarn test
+
+before_script:
+  - clean
+
+after_script:
+  - yarn clean
+
+cache:
+  directories:
+    - node_modules # mantener en cache node_modules
+
+jobs: # flujo de trabajo
+  include:
+    - stage: test
+      script: yarn test
+      script: yarn esling
+    - stage:
+      script: yarn deploy
+
+deploy:
+  provider: heroku
+  on
+    repo: borisvargas/platzi-store
